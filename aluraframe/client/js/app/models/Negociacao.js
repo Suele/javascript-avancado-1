@@ -1,5 +1,7 @@
 class Negociacao{
 
+    //propriedades privadas não podem ser alteradas diretamente 
+    //deve-se utilizar os métodos da classe.
     constructor(data, quantidade, valor){
         this._data = new Date(data.getTime());
         this._quantidade = quantidade;
