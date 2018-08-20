@@ -4,7 +4,7 @@ class NegociacoesView{
       this._elemento = elemento;
     }
 
-  _template(){
+  _template(listaDeNegociacoes){
     return `
       <table class="table table-hover table-bordered">
         <thead>
@@ -17,16 +17,31 @@ class NegociacoesView{
         </thead>
               
         <tbody>
+          ${listaDeNegociacoes.negociacoes.map((negociacao) => {
+            return `
+              <tr>
+                <td>${DateHelper.dataParaTexto(negociacao.data)}</td>
+                <td>${negociacao.quantidade}</td>
+                <td>${negociacao.valor}</td>
+                <td>${negociacao.volume}</td>
+              </tr>
+            `
+          }).join('')}
         </tbody>
               
         <tfoot>
+          <td colspan="3"></td>
+          <td>${listaDeNegociacoes.negociacoes.reduce(function(total, negociacao) {
+            return total + negociacao.volume;
+            }, 0.0)}
+          </td>
         </tfoot>
       </table>
    `;
   }
 
-  update(){
+  atualiza(listaDeNegociacoes){
     
-    this._elemento.innerHTML = this._template();
+    this._elemento.innerHTML = this._template(listaDeNegociacoes);
   }
 }
